@@ -1,0 +1,17 @@
+{
+    "name": "fs-angular-stat",
+    "description": "",
+    "main": [
+        "dist/stat.js",
+        "dist/stat.css"
+    ],
+    "authors": [
+        "Firestitch Inc."
+    ],
+    "license": "MIT",
+    "ignore": [
+        "src",
+        ".gitignore"
+    ],
+    "private": false
+}
