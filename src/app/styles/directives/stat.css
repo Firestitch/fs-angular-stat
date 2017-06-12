@@ -1,0 +1,38 @@
+fs-stat {
+    color: white;
+    font-size: 14px;
+}
+
+fs-stat > div {
+    border-radius: 8px;
+}
+
+fs-stat .stat-container {
+    position: relative;
+    overflow: hidden;
+}
+
+fs-stat .stat-content {
+    padding: 10px 8px;
+}
+
+fs-stat .heading {
+    font-size: 20px;
+}
+
+fs-stat md-icon {
+    color: white;
+    opacity: .3;
+}
+
+fs-stat md-icon.stat-icon {
+    position: absolute;
+    right: -30px;
+    bottom: -25px;
+}
+
+fs-stat md-menu button {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+}

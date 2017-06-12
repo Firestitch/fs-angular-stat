@@ -1,14 +1,17 @@
 'use strict';
 
 
-angular.module('app')
-  .controller('DemoCtrl', function ($scope) {
 
+angular.module('app')
 
-    $scope.text = '';
-    
-    $scope.submit = function() {
-        alert('submit');
-    }
-});
-
+  .controller('DemoCtrl', function ($scope) {
+
+    $scope.text = '';
+
+    $scope.submit = function() {
+
+        alert('submit');
+    };
+
+});
+
