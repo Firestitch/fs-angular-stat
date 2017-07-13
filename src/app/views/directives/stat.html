@@ -8,19 +8,11 @@
 
         <md-icon class="stat-icon" ng-if="icon" ng-style="{ 'width': iconSize, 'height': iconSize, 'font-size': iconSize }">{{ icon }}</md-icon>
 
-        <md-menu ng-if="actions.length" layout="row" layout-align="center center">
+        <md-menu ng-show="actions" layout="row" layout-align="center center">
             <md-button class="md-icon-button md-ink-ripple" type="button" ng-click="$mdOpenMenu($event)">
                 <md-icon>more_vert</md-icon>
             </md-button>
-            <md-menu-content>
-                <md-menu-item ng-repeat="item in actions">
-                    <md-button ng-if="item.href" ng-click="redirect(item.href)">
-                        {{ item.label }}
-                    </md-button>
-                    <md-button ng-if="item.click" ng-click="callFunction(item.click)">
-                        {{ item.label }}
-                    </md-button>
-                </md-menu-item>
+            <md-menu-content ng-transclude="action">
             </md-menu-content>
         </md-menu>
     </div>

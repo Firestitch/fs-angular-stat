@@ -7,53 +7,44 @@
             templateUrl: 'views/directives/stat.html',
             restrict: 'E',
             replace: false,
-            transclude: true,
+            transclude: {
+		        action: '?fsStatAction'
+		    },
             scope: {
-               options: "@fsOptions"
+               options: "@fsOptions",
+               value: "@fsValue",
+               label: "@fsLabel",
+               sublabel: "@fsSublabel",
+               icon: "@fsIcon"
             },
-            link: function($scope, element, attrs, ctrl, $transclude) {
+            controller: function($scope) {
 
-                $timeout(function() {
-                    $scope.options = angular.merge({
-                        width: '200px',
-                        height: '80px',
-                        'background-color': '#546e7a'
-                    }, $scope.options);
+            	$scope.options = angular.merge({
+                    width: '200px',
+                    height: '80px',
+                    'background-color': '#546e7a'
+                }, $scope.options);
 
-                    $scope.iconSize = parseInt($scope.options.height) + 20 + 'px';
+                $scope.actions = 0;
+            	$scope.iconSize = parseInt($scope.options.height) + 20 + 'px';
 
-                    $scope.value = angular.element(element).attr('fs-value');
-                    $scope.label = angular.element(element).attr('fs-label');
-                    $scope.sublabel = angular.element(element).attr('fs-sublabel');
-                    $scope.icon = angular.element(element).attr('fs-icon');
-
-                    $transclude(function(clone, scope) {
-
-                        $scope.actions = [];
-
-                        angular.forEach(clone, function(el) {
-
-                            var item = angular.element(el);
-
-                            if(item.prop("tagName") != 'FS-STAT-ACTION')return;
-
-                            $scope.actions.push({
-                                label: angular.element(el).attr("fs-label"),
-                                href: angular.element(el).attr("fs-href") || null,
-                                click: angular.element(el).attr("fs-click") || null
-                            });
-                        });
-                    });
-                });
-
-                $scope.redirect = function(path) {
-                    $location.path(path);
-                };
-
-                $scope.callFunction = function (name){
-                    if(angular.isFunction($scope.$parent[name]))
-                        $scope.$parent[name]();
-                };
+            	this.$scope = $scope;
+            }
+        };
+    })
+     .directive('fsStatAction', function($location, $timeout) {
+        return {
+            template: '<md-menu-item><md-button ng-if="href" ng-href="{{href}}">{{label}}</md-button><md-button ng-if="click" ng-click="click()">{{label}}</md-button></md-menu-item>',
+            restrict: 'E',
+            replace: true,
+            scope: {
+               click: '&?fsClick',
+               href: '@fsHref',
+               label: '@fsLabel'
+            },
+            require: '^fsStat',
+            link: function($scope, element, attrs, ctrl) {
+            	ctrl.$scope.actions++;
             }
         };
     });

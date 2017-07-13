@@ -8,53 +8,44 @@
             templateUrl: 'views/directives/stat.html',
             restrict: 'E',
             replace: false,
-            transclude: true,
+            transclude: {
+		        action: '?fsStatAction'
+		    },
             scope: {
-               options: "@fsOptions"
+               options: "@fsOptions",
+               value: "@fsValue",
+               label: "@fsLabel",
+               sublabel: "@fsSublabel",
+               icon: "@fsIcon"
             },
-            link: function($scope, element, attrs, ctrl, $transclude) {
+            controller: function($scope) {
 
-                $timeout(function() {
-                    $scope.options = angular.merge({
-                        width: '200px',
-                        height: '80px',
-                        'background-color': '#546e7a'
-                    }, $scope.options);
+            	$scope.options = angular.merge({
+                    width: '200px',
+                    height: '80px',
+                    'background-color': '#546e7a'
+                }, $scope.options);
 
-                    $scope.iconSize = parseInt($scope.options.height) + 20 + 'px';
+                $scope.actions = 0;
+            	$scope.iconSize = parseInt($scope.options.height) + 20 + 'px';
 
-                    $scope.value = angular.element(element).attr('fs-value');
-                    $scope.label = angular.element(element).attr('fs-label');
-                    $scope.sublabel = angular.element(element).attr('fs-sublabel');
-                    $scope.icon = angular.element(element).attr('fs-icon');
-
-                    $transclude(function(clone, scope) {
-
-                        $scope.actions = [];
-
-                        angular.forEach(clone, function(el) {
-
-                            var item = angular.element(el);
-
-                            if(item.prop("tagName") != 'FS-STAT-ACTION')return;
-
-                            $scope.actions.push({
-                                label: angular.element(el).attr("fs-label"),
-                                href: angular.element(el).attr("fs-href") || null,
-                                click: angular.element(el).attr("fs-click") || null
-                            });
-                        });
-                    });
-                });
-
-                $scope.redirect = function(path) {
-                    $location.path(path);
-                };
-
-                $scope.callFunction = function (name){
-                    if(angular.isFunction($scope.$parent[name]))
-                        $scope.$parent[name]();
-                };
+            	this.$scope = $scope;
+            }
+        };
+    })
+     .directive('fsStatAction', function($location, $timeout) {
+        return {
+            template: '<md-menu-item><md-button ng-if="href" ng-href="{{href}}">{{label}}</md-button><md-button ng-if="click" ng-click="click()">{{label}}</md-button></md-menu-item>',
+            restrict: 'E',
+            replace: true,
+            scope: {
+               click: '&?fsClick',
+               href: '@fsHref',
+               label: '@fsLabel'
+            },
+            require: '^fsStat',
+            link: function($scope, element, attrs, ctrl) {
+            	ctrl.$scope.actions++;
             }
         };
     });
@@ -69,7 +60,7 @@ angular.module('fs-angular-stat').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('views/directives/stat.html',
-    "<div ng-style=\"options\" class=\"stat-container\" layout=\"column\"><div layout=\"row\" class=\"stat-content\" flex><div layout=\"column\" flex><b ng-if=\"value\" class=\"heading\">{{ value }}</b> <span ng-if=\"label\">{{ label }}</span> <small ng-if=\"sublabel\">{{ sublabel }}</small></div><md-icon class=\"stat-icon\" ng-if=\"icon\" ng-style=\"{ 'width': iconSize, 'height': iconSize, 'font-size': iconSize }\">{{ icon }}</md-icon><md-menu ng-if=\"actions.length\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content><md-menu-item ng-repeat=\"item in actions\"><md-button ng-if=\"item.href\" ng-click=\"redirect(item.href)\">{{ item.label }}</md-button><md-button ng-if=\"item.click\" ng-click=\"callFunction(item.click)\">{{ item.label }}</md-button></md-menu-item></md-menu-content></md-menu></div></div>"
+    "<div ng-style=\"options\" class=\"stat-container\" layout=\"column\"><div layout=\"row\" class=\"stat-content\" flex><div layout=\"column\" flex><b ng-if=\"value\" class=\"heading\">{{ value }}</b> <span ng-if=\"label\">{{ label }}</span> <small ng-if=\"sublabel\">{{ sublabel }}</small></div><md-icon class=\"stat-icon\" ng-if=\"icon\" ng-style=\"{ 'width': iconSize, 'height': iconSize, 'font-size': iconSize }\">{{ icon }}</md-icon><md-menu ng-show=\"actions\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content ng-transclude=\"action\"></md-menu-content></md-menu></div></div>"
   );
 
 }]);
