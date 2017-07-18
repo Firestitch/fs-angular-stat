@@ -28,6 +28,9 @@
                 }
 
             	this.$scope = $scope;
+            },
+            link: function($scope, element) {
+            	angular.element(element).addClass('fs-theme-primary-background-color');
             }
         };
     })

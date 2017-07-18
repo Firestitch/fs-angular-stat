@@ -29,6 +29,9 @@
                 }
 
             	this.$scope = $scope;
+            },
+            link: function($scope, element) {
+            	angular.element(element).addClass('fs-theme-primary-background-color');
             }
         };
     })
@@ -59,7 +62,7 @@ angular.module('fs-angular-stat').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('views/directives/stat.html',
-    "<div layout=\"row\" class=\"fs-theme-primary-background-color fs-stat-wrap\" flex ng-style=\"styles\"><div flex><div ng-if=\"value\" class=\"fs-stat-heading\">{{ value }}</div><div ng-if=\"label\" class=\"fs-stat-label\">{{ label }}</div><div ng-if=\"sublabel\" class=\"fs-stat-sublabel\">{{ sublabel }}</div></div><md-menu ng-show=\"actions\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content ng-transclude=\"action\"></md-menu-content></md-menu><md-icon class=\"stat-icon\" ng-if=\"icon\">{{ icon }}</md-icon></div>"
+    "<div layout=\"row\" class=\"fs-stat-wrap\" flex ng-style=\"styles\"><div flex><div ng-if=\"value\" class=\"fs-stat-heading\">{{ value }}</div><div ng-if=\"label\" class=\"fs-stat-label\">{{ label }}</div><div ng-if=\"sublabel\" class=\"fs-stat-sublabel\">{{ sublabel }}</div></div><md-menu ng-show=\"actions\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content ng-transclude=\"action\"></md-menu-content></md-menu><md-icon class=\"stat-icon\" ng-if=\"icon\">{{ icon }}</md-icon></div>"
   );
 
 }]);
