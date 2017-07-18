@@ -16,13 +16,13 @@
                value: "@fsValue",
                label: "@fsLabel",
                sublabel: "@fsSublabel",
-               icon: "@fsIcon"
+               icon: "@fsIcon",
+               width: "@fsWidth"
             },
             controller: function($scope) {
-
+            	$scope.width = $scope.width || 200;
             	$scope.options = angular.merge({
-                    width: '200px',
-                    height: '80px',
+                    minWidth: $scope.width + 'px',
                     'background-color': '#546e7a'
                 }, $scope.options);
 
@@ -60,7 +60,7 @@ angular.module('fs-angular-stat').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('views/directives/stat.html',
-    "<div ng-style=\"options\" class=\"stat-container\" layout=\"column\"><div layout=\"row\" class=\"stat-content\" flex><div layout=\"column\" flex><b ng-if=\"value\" class=\"heading\">{{ value }}</b> <span ng-if=\"label\">{{ label }}</span> <small ng-if=\"sublabel\">{{ sublabel }}</small></div><md-icon class=\"stat-icon\" ng-if=\"icon\" ng-style=\"{ 'width': iconSize, 'height': iconSize, 'font-size': iconSize }\">{{ icon }}</md-icon><md-menu ng-show=\"actions\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content ng-transclude=\"action\"></md-menu-content></md-menu></div></div>"
+    "<div layout=\"row\" class=\"stat-content\" flex ng-style=\"options\"><div layout=\"column\" flex><b ng-if=\"value\" class=\"heading\">{{ value }}</b> <span ng-if=\"label\">{{ label }}</span> <small ng-if=\"sublabel\">{{ sublabel }}</small></div><md-icon class=\"stat-icon\" ng-if=\"icon\" ng-style=\"{ 'width': iconSize, 'height': iconSize, 'font-size': iconSize }\">{{ icon }}</md-icon><md-menu ng-show=\"actions\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content ng-transclude=\"action\"></md-menu-content></md-menu></div>"
   );
 
 }]);

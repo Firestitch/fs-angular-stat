@@ -15,13 +15,13 @@
                value: "@fsValue",
                label: "@fsLabel",
                sublabel: "@fsSublabel",
-               icon: "@fsIcon"
+               icon: "@fsIcon",
+               width: "@fsWidth"
             },
             controller: function($scope) {
-
+            	$scope.width = $scope.width || 200;
             	$scope.options = angular.merge({
-                    width: '200px',
-                    height: '80px',
+                    minWidth: $scope.width + 'px',
                     'background-color': '#546e7a'
                 }, $scope.options);
 
