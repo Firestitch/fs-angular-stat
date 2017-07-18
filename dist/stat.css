@@ -7,7 +7,7 @@ fs-stats {
 fs-stat {
     color: white;
     font-size: 14px;
-    flex: 1 1 auto;
+    flex: 1 0;
     margin-bottom: 8px;
     margin-right: 8px;
     background-color: #ccc;
