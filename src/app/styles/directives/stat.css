@@ -1,6 +1,7 @@
 fs-stat {
     color: white;
     font-size: 14px;
+    display: inline-block;
 }
 
 fs-stat > div {
@@ -36,3 +37,17 @@ fs-stat md-menu button {
     padding: 0 !important;
     width: auto !important;
 }
+
+
+@media screen and (max-width: 599px) {
+	fs-stat {
+	    display: block;
+	}
+
+	fs-stat .stat-container {
+	    width: 100% !important;
+	}
+}
+
+
+
