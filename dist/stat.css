@@ -8,8 +8,10 @@ fs-stat {
     color: white;
     font-size: 14px;
     flex: 1 1 auto;
-    padding-bottom: 8px;
-    padding-right: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    background-color: #ccc;
+    border-radius: 8px;
 }
 
 fs-stat:last-child {
@@ -17,21 +19,17 @@ fs-stat:last-child {
     padding-bottom: 0px;
 }
 
-
-fs-stat > div {
-    border-radius: 8px;
-}
-
 fs-stat .stat-container {
     position: relative;
     overflow: hidden;
 }
 
-fs-stat .stat-content {
+.fs-stat-wrap {
     padding: 10px 8px;
+    position: relative;
 }
 
-fs-stat .heading {
+.fs-stat-heading {
     font-size: 20px;
 }
 
@@ -41,9 +39,16 @@ fs-stat md-icon {
 }
 
 fs-stat md-icon.stat-icon {
-    position: absolute;
-    right: -30px;
-    bottom: -25px;
+	position: absolute;
+    right: 43px;
+    font-size: 84px;
+    top: 5px;
+}
+
+.fs-stat-heading,
+.fs-stat-sublabel,
+.fs-stat-label {
+	display: block;
 }
 
 fs-stat md-menu button {
@@ -55,7 +60,7 @@ fs-stat md-menu button {
 
 @media screen and (max-width: 599px) {
 	fs-stat {
-	    padding-right: 0;
+	    margin-right: 0;
 	}
 }
 

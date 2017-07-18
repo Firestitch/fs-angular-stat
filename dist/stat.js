@@ -12,7 +12,6 @@
 		        action: '?fsStatAction'
 		    },
             scope: {
-               options: "@fsOptions",
                value: "@fsValue",
                label: "@fsLabel",
                sublabel: "@fsSublabel",
@@ -20,14 +19,14 @@
                width: "@fsWidth"
             },
             controller: function($scope) {
-            	$scope.width = $scope.width || 200;
-            	$scope.options = angular.merge({
-                    minWidth: $scope.width + 'px',
-                    'background-color': '#546e7a'
-                }, $scope.options);
 
-                $scope.actions = 0;
-            	$scope.iconSize = parseInt($scope.options.height) + 20 + 'px';
+            	$scope.actions = 0;
+            	$scope.iconSize = 20 + 'px';
+				$scope.styles = $scope.styles || {};
+
+                if($scope.width) {
+                	$scope.styles.minWidth = $scope.width + 'px';
+                }
 
             	this.$scope = $scope;
             }
@@ -60,7 +59,7 @@ angular.module('fs-angular-stat').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('views/directives/stat.html',
-    "<div layout=\"row\" class=\"stat-content\" flex ng-style=\"options\"><div layout=\"column\" flex><b ng-if=\"value\" class=\"heading\">{{ value }}</b> <span ng-if=\"label\">{{ label }}</span> <small ng-if=\"sublabel\">{{ sublabel }}</small></div><md-icon class=\"stat-icon\" ng-if=\"icon\" ng-style=\"{ 'width': iconSize, 'height': iconSize, 'font-size': iconSize }\">{{ icon }}</md-icon><md-menu ng-show=\"actions\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content ng-transclude=\"action\"></md-menu-content></md-menu></div>"
+    "<div layout=\"row\" class=\"fs-theme-primary-background-color fs-stat-wrap\" flex ng-style=\"styles\"><div flex><div ng-if=\"value\" class=\"fs-stat-heading\">{{ value }}</div><div ng-if=\"label\" class=\"fs-stat-label\">{{ label }}</div><div ng-if=\"sublabel\" class=\"fs-stat-sublabel\">{{ sublabel }}</div></div><md-menu ng-show=\"actions\" layout=\"row\" layout-align=\"center center\"><md-button class=\"md-icon-button md-ink-ripple\" type=\"button\" ng-click=\"$mdOpenMenu($event)\"><md-icon>more_vert</md-icon></md-button><md-menu-content ng-transclude=\"action\"></md-menu-content></md-menu><md-icon class=\"stat-icon\" ng-if=\"icon\">{{ icon }}</md-icon></div>"
   );
 
 }]);

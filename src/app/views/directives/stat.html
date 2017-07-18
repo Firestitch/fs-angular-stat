@@ -1,12 +1,9 @@
-<div layout="row" class="stat-content" flex ng-style="options">
-    <div layout="column" flex>
-        <b ng-if="value" class="heading">{{ value }}</b>
-        <span ng-if="label">{{ label }}</span>
-        <small ng-if="sublabel">{{ sublabel }}</small>
-    </div>
-
-    <md-icon class="stat-icon" ng-if="icon" ng-style="{ 'width': iconSize, 'height': iconSize, 'font-size': iconSize }">{{ icon }}</md-icon>
-
+<div layout="row" class="fs-theme-primary-background-color fs-stat-wrap" flex ng-style="styles">
+	<div flex>
+	    <div ng-if="value" class="fs-stat-heading">{{ value }}</div>
+	    <div ng-if="label" class="fs-stat-label">{{ label }}</div>
+	    <div ng-if="sublabel" class="fs-stat-sublabel">{{ sublabel }}</div>
+	</div>
     <md-menu ng-show="actions" layout="row" layout-align="center center">
         <md-button class="md-icon-button md-ink-ripple" type="button" ng-click="$mdOpenMenu($event)">
             <md-icon>more_vert</md-icon>
@@ -14,4 +11,5 @@
         <md-menu-content ng-transclude="action">
         </md-menu-content>
     </md-menu>
+    <md-icon class="stat-icon" ng-if="icon" >{{ icon }}</md-icon>
 </div>

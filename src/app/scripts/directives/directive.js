@@ -11,7 +11,6 @@
 		        action: '?fsStatAction'
 		    },
             scope: {
-               options: "@fsOptions",
                value: "@fsValue",
                label: "@fsLabel",
                sublabel: "@fsSublabel",
@@ -19,14 +18,14 @@
                width: "@fsWidth"
             },
             controller: function($scope) {
-            	$scope.width = $scope.width || 200;
-            	$scope.options = angular.merge({
-                    minWidth: $scope.width + 'px',
-                    'background-color': '#546e7a'
-                }, $scope.options);
 
-                $scope.actions = 0;
-            	$scope.iconSize = parseInt($scope.options.height) + 20 + 'px';
+            	$scope.actions = 0;
+            	$scope.iconSize = 20 + 'px';
+				$scope.styles = $scope.styles || {};
+
+                if($scope.width) {
+                	$scope.styles.minWidth = $scope.width + 'px';
+                }
 
             	this.$scope = $scope;
             }
