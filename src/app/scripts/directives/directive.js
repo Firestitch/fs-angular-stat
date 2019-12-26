@@ -15,13 +15,14 @@
                label: "@fsLabel",
                sublabel: "@fsSublabel",
                icon: "@fsIcon",
-               width: "@fsWidth"
+               width: "@fsWidth",
+               color: "@fsColor",
             },
             controller: function($scope) {
 
             	$scope.actions = 0;
             	$scope.iconSize = 20 + 'px';
-				$scope.styles = $scope.styles || {};
+                $scope.styles = $scope.styles || {};
 
                 if($scope.width) {
                 	$scope.styles.minWidth = $scope.width + 'px';
@@ -30,7 +31,11 @@
             	this.$scope = $scope;
             },
             link: function($scope, element) {
-            	angular.element(element).addClass('fs-theme-primary-background-color');
+                if (!$scope.color) {
+                    angular.element(element).addClass('fs-theme-primary-background-color');
+                } else {
+                    angular.element(element).css('background-color', $scope.color);
+                }
             }
         };
     })
